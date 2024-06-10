@@ -38,6 +38,12 @@ fn test_base10_integer_literal_u32() {
 }
 
 #[test]
+fn test_base10_integer_literal_u64() {
+    let b = biguint!(18446744073709551615u64);
+    assert_eq!(b, BigUint::from_u64(18446744073709551615u64).unwrap());
+}
+
+#[test]
 fn test_base16_integer_literal_u8() {
     let b = biguint!(0xffu8);
     assert_eq!(b, BigUint::from_u8(0xff).unwrap());
@@ -53,4 +59,10 @@ fn test_base16_integer_literal_u16() {
 fn test_base16_integer_literal_u32() {
     let b = biguint!(0xffffffffu32);
     assert_eq!(b, BigUint::from_u32(0xffffffff).unwrap());
+}
+
+#[test]
+fn test_base16_integer_literal_u64() {
+    let b = biguint!(0xffffffffffffffffu64);
+    assert_eq!(b, BigUint::from_u64(0xffffffffffffffff).unwrap());
 }
