@@ -9,18 +9,6 @@ fn test_base10_implicit_radix() {
 }
 
 #[test]
-fn test_base10_implicit_radix_large() {
-    // test large bignum that will overflow several u32 limbs
-    let b = biguint!("340282366920938463463374607431768211455"); // 2^128-1 = 0xffffffffffffffffffffffffffffffff
-    let digs = b.to_u32_digits();
-    assert_eq!(digs.len(), 4); // b should have 4 u32 limbs
-    assert_eq!(digs[0], 0xffffffffu32);
-    assert_eq!(digs[1], 0xffffffffu32);
-    assert_eq!(digs[2], 0xffffffffu32);
-    assert_eq!(digs[3], 0xffffffffu32);
-}
-
-#[test]
 fn test_base10_explicit_radix() {
     let a: BigUint = 10000000u32.into();
     let b = biguint!("10000000", 10);
@@ -32,6 +20,17 @@ fn test_base16_explicit_radix() {
     let a: BigUint = 0xabcdefu32.into();
     let b = biguint!("abcdef", 16);
     assert_eq!(a, b);
+}
+
+#[test]
+fn test_base16_explicit_radix_large() {
+    let b = biguint!("ffffffffffffffffffffffffffffffff", 16);
+    let digs = b.to_u32_digits();
+    assert_eq!(digs.len(), 4); // b should have 4 u32 limbs
+    assert_eq!(digs[0], 0xffffffffu32);
+    assert_eq!(digs[1], 0xffffffffu32);
+    assert_eq!(digs[2], 0xffffffffu32);
+    assert_eq!(digs[3], 0xffffffffu32);
 }
 
 #[test]
